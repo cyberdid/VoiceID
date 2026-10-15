@@ -164,7 +164,6 @@ VoiceID/
 ├── CLAUDE.md                         # Правила підтримки LLM Wiki
 ├── docs/                             # Первинні джерела та master specification
 │   ├── VOICE_ID_OPENEVOLVE_MASTER.md
-│   ├── *.pdf
 │   ├── *.md
 │   └── *.ipynb
 ├── wiki/
@@ -182,10 +181,10 @@ VoiceID/
 └── notebooklm/
     ├── README.md                     # Навігатор експортного пакета
     ├── 00_*.md ... 09_*.md            # Тематичні досьє
-    └── reports/                      # Звіти, JSON/CSV та infographic; audio overview у GitHub Release
+    └── reports/                      # Звіти й JSON/CSV; графіка та аудіо у GitHub Release
 ```
 
-`temp/`, checkpoint files, embeddings і experiment runs виключені через `.gitignore`. Згенерований NotebookLM audio overview поширюється окремим GitHub Release asset, щоб уникнути повільного клонування історії. Приватний аудіокорпус і model weights у цей snapshot не входять.
+`temp/`, checkpoint files, embeddings і experiment runs виключені через `.gitignore`. У [GitHub Release v0.1.0](https://github.com/cyberdid/VoiceID/releases/tag/v0.1.0) розміщені два source PDF, infographic та згенерований NotebookLM audio overview. Приватний аудіокорпус і model weights у цей snapshot не входять.
 
 ## Як користуватися репозиторієм
 
