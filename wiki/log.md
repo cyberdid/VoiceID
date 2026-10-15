@@ -292,4 +292,4 @@ AI-методи (ASR, ECAPA-TDNN, x-/i-вектори, ResNet), вплив па�
 
 Перед публікацією уточнено формат експортної таблиці: `notebooklm/reports/data-table.json` містив CSV; перейменовано на `data-table.csv` без зміни вмісту. Інші JSON exports перевіряються з підтримкою UTF-8 BOM.
 
-Через HTTP 408 під час Git push великий згенерований `audio_overview.m4a` (59 МБ) публікується окремим GitHub Release asset; snapshot репозиторію містить повну текстову базу, джерела, зображення й кодові матеріали.
+Через HTTP 408 під час Git push великі бінарні файли винесено в [GitHub Release v0.1.0](https://github.com/cyberdid/VoiceID/releases/tag/v0.1.0): два source PDF, infographic та згенерований `audio_overview.m4a` (59 МБ). Публічна `main` містить README, wiki, NotebookLM текстові exports, JSON/CSV та кодові матеріали.
