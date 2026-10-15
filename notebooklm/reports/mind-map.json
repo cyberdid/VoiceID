@@ -1,0 +1,253 @@
+{
+  "name": "VoiceID Project Knowledge Base",
+  "children": [
+    {
+      "name": "Acoustic Parameters & Preprocessing",
+      "children": [
+        {
+          "name": "Basic Acoustic Descriptors",
+          "children": [
+            {
+              "name": "Fundamental Frequency: F0 and pitch statistics"
+            },
+            {
+              "name": "Formants: F1 to F4 vocal tract resonances"
+            },
+            {
+              "name": "Perturbation Measures: Jitter and shimmer"
+            },
+            {
+              "name": "Harmonics-to-Noise Ratio: HNR in dB"
+            }
+          ]
+        },
+        {
+          "name": "Preprocessing Pipeline",
+          "children": [
+            {
+              "name": "FFmpeg Decoding: 16 kHz PCM Mono"
+            },
+            {
+              "name": "Voice Activity Detection: Silero VAD"
+            },
+            {
+              "name": "Duration Filter: Clean speech >= 3.0s"
+            },
+            {
+              "name": "Telephony Filter: 8 kHz simulation"
+            },
+            {
+              "name": "Feature Extraction: 80-dim Log-Mel Fbank"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Encoder Models & Architectures",
+      "children": [
+        {
+          "name": "SimAM-ResNet34",
+          "children": [
+            {
+              "name": "Embedding Dimension: 512"
+            },
+            {
+              "name": "Training Dataset: VoxBlink2 (110k+ speakers)"
+            },
+            {
+              "name": "Architecture: ResNet + Parameter-free 3D Attention"
+            },
+            {
+              "name": "Performance: Vox1-O EER 0.372%"
+            }
+          ]
+        },
+        {
+          "name": "ERes2NetV2",
+          "children": [
+            {
+              "name": "Embedding Dimension: 192"
+            },
+            {
+              "name": "Parameter Count: 17.8M parameters"
+            },
+            {
+              "name": "Domain Robustness: CNCeleb EER 6.14%"
+            },
+            {
+              "name": "Short Duration: 2s EER 1.48%"
+            }
+          ]
+        },
+        {
+          "name": "CAM++",
+          "children": [
+            {
+              "name": "Embedding Dimension: 192"
+            },
+            {
+              "name": "Parameter Count: 7.2M parameters"
+            },
+            {
+              "name": "Architecture: Context-Aware Masking D-TDNN"
+            }
+          ]
+        },
+        {
+          "name": "Wespeaker ResNet34-LM",
+          "children": [
+            {
+              "name": "Embedding Dimension: 512"
+            },
+            {
+              "name": "Architecture: ResNet34 with Large Margin Softmax"
+            },
+            {
+              "name": "Role: Ground Truth baseline in PyAnnote"
+            }
+          ]
+        },
+        {
+          "name": "Angular Margin Loss Functions",
+          "children": [
+            {
+              "name": "A-Softmax: SphereFace multiplicative margin"
+            },
+            {
+              "name": "AM-Softmax: CosFace additive cosine margin"
+            },
+            {
+              "name": "AAM-Softmax: ArcFace additive angular margin"
+            },
+            {
+              "name": "Large Margin Fine-Tuning: 6s segments and m=0.5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Clustering & Pseudo-Label Training",
+      "children": [
+        {
+          "name": "Data Management & UIO",
+          "children": [
+            {
+              "name": "Shard Architecture: GNU tar archives 1-2 GB"
+            },
+            {
+              "name": "Problem Solved: I/O Bottleneck & Inodes exhaustion"
+            }
+          ]
+        },
+        {
+          "name": "Graph Clustering Pipeline",
+          "children": [
+            {
+              "name": "FAISS HNSW Index: Cosine similarity k=50"
+            },
+            {
+              "name": "Mutual kNN: Eliminates unilateral edges"
+            },
+            {
+              "name": "Leiden Algorithm: Community detection"
+            },
+            {
+              "name": "Hierarchical Clustering: AHC for large communities"
+            }
+          ]
+        },
+        {
+          "name": "Unsupervised Threshold Calibration",
+          "children": [
+            {
+              "name": "Split-Half Positives: Same-speaker half comparisons"
+            },
+            {
+              "name": "Random Negatives: Different-speaker pairs"
+            },
+            {
+              "name": "Expert Anchor: 200 manually labeled pairs"
+            }
+          ]
+        },
+        {
+          "name": "Pseudo-Label Training Cycle",
+          "children": [
+            {
+              "name": "Self-Supervised Learning: Iterative AAM fine-tuning"
+            },
+            {
+              "name": "Performance Target: EER ~0.99% without manual labels"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Open-Set Biometrics & Evaluation",
+      "children": [
+        {
+          "name": "Task Typology",
+          "children": [
+            {
+              "name": "Speaker Verification: 1:1 binary decision"
+            },
+            {
+              "name": "Closed-Set Identification: 1:N classification"
+            },
+            {
+              "name": "Open-Set Identification: Watchlist plus OOS"
+            },
+            {
+              "name": "Speaker Diarization: Who spoke when"
+            }
+          ]
+        },
+        {
+          "name": "Watchlist Scaling Problem",
+          "children": [
+            {
+              "name": "False Alarm Inflation: FAR grows with watchlist size"
+            },
+            {
+              "name": "AWS VoxWatch Finding: FAR@FRR=5% rises to 16.1% at 500 size"
+            }
+          ]
+        },
+        {
+          "name": "Evaluation Metrics",
+          "children": [
+            {
+              "name": "Equal Error Rate: EER operating point"
+            },
+            {
+              "name": "Security Metric: FRR at FAR=0.5%"
+            },
+            {
+              "name": "Detection Cost: minDCF function"
+            }
+          ]
+        },
+        {
+          "name": "Score Post-Processing",
+          "children": [
+            {
+              "name": "Score Fusion: Unweighted average of models"
+            },
+            {
+              "name": "QMF Calibration: Quality-aware logistic regression"
+            },
+            {
+              "name": "Multi-Session Enrollment: Averaging speaker embeddings"
+            },
+            {
+              "name": "Adaptive Score Normalization: AS-Norm cohort scaling"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

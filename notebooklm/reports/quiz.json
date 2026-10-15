@@ -1,0 +1,243 @@
+{
+  "title": "Speaker Recognition Quiz",
+  "questions": [
+    {
+      "type": "multiple_choice",
+      "question": "An open-set speaker identification system deploys a watchlist of 1,210 enrolled individuals with a baseline 1:1 pairwise verification false alarm rate ($FAR_{1:1}$) of 0.1%. When an unknown out-of-set (OOS) speaker interacts with the system, which mathematical phenomenon primarily explains why the overall system false alarm rate ($FAR_{OSI}$) degrades dramatically?",
+      "answerOptions": [
+        {
+          "text": "The probability that an OOS speaker randomly exceeds the decision threshold for at least one watchlist member scales exponentially according to $1 - (1 - FAR_{1:1})^N$.",
+          "isCorrect": true,
+          "rationale": "In open-set identification, as the watchlist size $N$ expands, the system conducts $N$ independent comparisons per sample, causing the aggregate out-of-set false alarm rate to compound towards 1."
+        },
+        {
+          "text": "The embedding extractor compresses vectors onto a lower-dimensional hypersphere as $N$ increases, causing intra-class variance to expand.",
+          "isCorrect": false,
+          "rationale": "Embedding dimensionality remains fixed during extraction regardless of how many speakers are enrolled in the downstream watchlist."
+        },
+        {
+          "text": "The cosine similarity score distribution for target in-set pairs systematically shifts to the left as watchlist size grows.",
+          "isCorrect": false,
+          "rationale": "Target in-set similarity distributions remain stable; it is the maximum out-of-set non-target scores that shift to the right toward the target distribution."
+        },
+        {
+          "text": "Adaptive score normalization (AS-Norm) forces all cohort similarity means to zero when watchlist size exceeds 500.",
+          "isCorrect": false,
+          "rationale": "AS-Norm normalizes scores using top-k cohort statistics rather than forcing cohort means to zero, though it can degrade strong neural models in large-watchlist open-set tasks."
+        }
+      ],
+      "hint": "Consider how taking the maximum similarity score across $N$ independent biometric comparisons affects non-target trial probabilities."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "When evaluating speaker recognition performance on short 2-second audio clips from a heavily compressed, noisy target corpus, which architectural mechanism enables ERes2NetV2 to maintain lower Error Rates compared to standard ECAPA-TDNN architectures?",
+      "answerOptions": [
+        {
+          "text": "Multi-scale local and global feature fusion (Local and Global Feature Fusion) that integrates short-term phonetic transitions with long-term timbre characteristics.",
+          "isCorrect": true,
+          "rationale": "ERes2NetV2 utilizes a multi-scale feature fusion design that retains acoustic detail across both short phonetic frame windows and utterance-level timbre."
+        },
+        {
+          "text": "Parameter-free 3D attention modules that dynamically recalculate channel weight energy without adding model parameters.",
+          "isCorrect": false,
+          "rationale": "Parameter-free 3D attention energy calculation is the defining feature of SimAM-ResNet, not ERes2NetV2."
+        },
+        {
+          "text": "Context-Aware Masking applied over deep time-delay neural network layers to reduce parameter count to 7.2 million.",
+          "isCorrect": false,
+          "rationale": "Context-Aware Masking (CAM) over D-TDNN describes the lightweight CAM++ architecture rather than ERes2NetV2."
+        },
+        {
+          "text": "Time-domain raw waveform convolution blocks that bypass Mel-filterbank feature extraction.",
+          "isCorrect": false,
+          "rationale": "Bypassing filterbanks via raw time-domain convolution is characteristic of RawNet3, whereas ERes2NetV2 operates on standard Log-Mel filterbanks."
+        }
+      ],
+      "hint": "Focus on how the model extracts features across multiple temporal and structural granularities."
+    },
+    {
+      "type": "multiple_select",
+      "hasAllOfTheAbove": false,
+      "hasNoneOfTheAbove": false,
+      "question": "In an open-set speaker spotting pipeline operating on a large watchlist ($N > 1000$), which of the following post-processing strategies reduce False Alarm Rates without retraining the neural network encoder weights?",
+      "answerOptions": [
+        {
+          "text": "Score Fusion combining unweighted similarity scores from two architecturally distinct embedding networks.",
+          "isCorrect": true,
+          "rationale": "Combining prediction scores from distinct network architectures leverages complementary error patterns, yielding up to a 44% reduction in false alarm rates."
+        },
+        {
+          "text": "Quality-Aware Score Calibration (QMF) applying logistic regression over speech duration, embedding norm, and SNR.",
+          "isCorrect": true,
+          "rationale": "QMF calibration adjusts cosine scores based on signal quality factors to suppress score inflation on degraded audio, achieving roughly a 21% reduction in false alarms."
+        },
+        {
+          "text": "Multi-Session Enrollment averaging normalized embedding vectors extracted across different recording sessions.",
+          "isCorrect": true,
+          "rationale": "Averaging speaker vectors across multiple distinct sessions cancels out temporary channel variations and transient background noise."
+        },
+        {
+          "text": "Universal application of Adaptive Score Normalization (AS-Norm) using top-cohort statistics.",
+          "isCorrect": false,
+          "rationale": "Empirical evaluations on large open-set watchlists demonstrate that AS-Norm can actually degrade the performance of highly discriminative neural models when taking the maximum score."
+        }
+      ],
+      "hint": "Identify post-processing adjustments that neutralize signal variability or aggregate complementary representations."
+    },
+    {
+      "type": "fill_in_the_blank",
+      "question": "During the Large Margin Fine-Tuning (LM-FT) stage of speaker verification models, the angular margin $m$ in AAM-Softmax is raised to 0.5, audio chunk lengths are expanded to 6 seconds, and the ___ data augmentation technique is disabled to avoid blurring delicate timbral differences.",
+      "bestAnswer": "speed perturbation",
+      "acceptableAnswers": [
+        "speed perturb",
+        "speed perturbation augmentation"
+      ],
+      "rationale": "Speed perturbation artificially alters the pitch and vocal tract scale of audio utterances, which must be disabled during fine-tuning so the model can learn precise, unblurred speaker timbre.",
+      "hint": "Recall which augmentation method modifies the pitch shift and playback rate of training samples."
+    },
+    {
+      "type": "fill_in_the_blank",
+      "question": "In biometric speaker recognition evaluation, the metric ___ represents the specific operational point on the DET curve where the false rejection rate equals the false acceptance rate, although practical security systems operate at far lower false alarm thresholds.",
+      "bestAnswer": "Equal Error Rate",
+      "acceptableAnswers": [
+        "EER",
+        "equal error rate"
+      ],
+      "rationale": "Equal Error Rate (EER) measures the theoretical intersection where false rejection and false acceptance rates match, serving as a standard baseline metric despite not reflecting practical operational thresholds.",
+      "hint": "Think of the point where the two primary error rates on a DET curve cross."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "During large-scale unsupervised speaker clustering on millions of unlabelled chat messages, two distinct speakers are accidentally joined into a single cluster due to intermediate noisy files. Which graph-filtering mechanism specifically breaks these one-sided bridge connections to mitigate this 'chaining effect'?",
+      "answerOptions": [
+        {
+          "text": "Mutual k-Nearest Neighbors (Mutual kNN) filtering combined with a calibrated similarity threshold $\\theta$.",
+          "isCorrect": true,
+          "rationale": "Mutual kNN requires an edge between nodes $u$ and $v$ to exist in both $u$'s top-$k$ list and $v$'s top-$k$ list simultaneously, severing asymmetric, single-file noise bridges between clusters."
+        },
+        {
+          "text": "Agglomerative Hierarchical Clustering (AHC) using single-linkage criteria across all connected components.",
+          "isCorrect": false,
+          "rationale": "Single-linkage AHC merges clusters based on the minimum pairwise distance, which severely worsens the chaining effect."
+        },
+        {
+          "text": "K-means clustering with fixed $k$ centroids initialized via principal component analysis.",
+          "isCorrect": false,
+          "rationale": "K-means forces hyper-spherical cluster geometry and requires knowing the total number of speakers in advance, failing to address graph bridging."
+        },
+        {
+          "text": "Applying Log-Mel Filterbanks with cepstral mean normalization prior to graph construction.",
+          "isCorrect": false,
+          "rationale": "Filterbank extraction and cepstral mean normalization are front-end feature processing steps, not graph topology filtering algorithms."
+        }
+      ],
+      "hint": "Consider a condition that requires bidirectional agreement between adjacent nodes in a nearest-neighbor graph."
+    },
+    {
+      "type": "short_answer",
+      "question": "Explain how an iterative self-supervised learning pipeline utilizes pseudo-labels to adapt a pre-trained speaker encoder to an unlabelled target corpus (such as compressed Telegram audio) without human annotation.",
+      "grading": {
+        "modelAnswer": "The system extracts embeddings from the unlabelled corpus using a pre-trained encoder and performs graph clustering (e.g., via FAISS HNSW and Leiden) to group audio files into pseudo-speaker classes. It then fine-tunes the encoder using an AAM-Softmax loss on these generated pseudo-labels. Re-extracting embeddings with the updated encoder produces better domain-adapted representations, allowing subsequent clustering iterations to refine speaker clusters and eliminate domain mismatch.",
+        "rationale": "Self-supervised adaptation iteratively tightens cluster boundaries by alternating between graph-based pseudo-label generation and loss-guided metric learning on the target domain audio.",
+        "requiredAttributes": [
+          "Mentions initial embedding extraction and graph clustering to form pseudo-labels/pseudo-speakers.",
+          "Describes fine-tuning or retraining the encoder using loss functions (like AAM-Softmax) on these pseudo-labels.",
+          "Explains that updated embeddings refine subsequent clustering iterations to bridge domain mismatch."
+        ],
+        "errors": {
+          "misconceptions": [
+            "Believing that pseudo-label training requires manual transcriptions or external supervised labels.",
+            "Assuming the encoder remains frozen while only the graph centroids are updated."
+          ],
+          "bluffs": [
+            "Vague statements about using neural networks to clean noise without mentioning clustering or iterative retraining."
+          ]
+        }
+      },
+      "hint": "Detail the loop alternating between graph-based class assignment and neural network loss optimization."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "When preprocessing audio or simulating narrow-band telephone channels (8 kHz sampling rate) during model fine-tuning, what primary acoustic objective does a Telephony Filter achieve?",
+      "answerOptions": [
+        {
+          "text": "It irreversibly crops frequencies above 4 kHz, forcing the neural network to rely on lower formants ($F_1$--$F_3$) rather than high-frequency studio harmonics.",
+          "isCorrect": true,
+          "rationale": "Resampling down to 8 kHz and back to 16 kHz removes spectral content above 4 kHz, training the encoder to remain robust when high-frequency cues are absent."
+        },
+        {
+          "text": "It strips out fundamental frequency ($F_0$) pitch contours to eliminate emotional vocal variation.",
+          "isCorrect": false,
+          "rationale": "The fundamental frequency $F_0$ lies well below 300 Hz and is not removed by narrow-band bandpass filtering."
+        },
+        {
+          "text": "It applies sentence-level cepstral mean and variance normalization to equalize microphone gain differences.",
+          "isCorrect": false,
+          "rationale": "Equalizing feature mean and variance across time frames is performed by CMVN, not a frequency-domain channel filter."
+        },
+        {
+          "text": "It converts uncompressed PCM audio directly into 80-dimensional Log-Mel Filterbanks.",
+          "isCorrect": false,
+          "rationale": "Log-Mel Filterbank calculation is a time-frequency transformation step that occurs after channel filtering."
+        }
+      ],
+      "hint": "Think about how limiting signal bandwidth to under 4 kHz shifts the network's reliance on specific vocal tract resonances."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Comparative evaluation on the Vox1-O benchmark shows that a 34-layer SimAM-ResNet model trained on VoxBlink2 achieves a lower EER ($0.372\\%$) than a 293-layer ResNet model trained on VoxCeleb2 ($0.425\\%$). What fundamental principle of deep speaker embedding learning is demonstrated by this result?",
+      "answerOptions": [
+        {
+          "text": "Multi-speaker data volume and diversity dominate network depth in learning robust, generalized speaker embeddings.",
+          "isCorrect": true,
+          "rationale": "Training on 110,000+ speakers in VoxBlink2 provides significantly superior generalization than scaling network depth to 293 layers on a 6,000-speaker corpus."
+        },
+        {
+          "text": "Parameter-free attention modules replace the need for angular margin loss functions during metric learning.",
+          "isCorrect": false,
+          "rationale": "SimAM modules refine feature map representations, but Large-Margin Softmax losses are still required to enforce angular hyper-spherical separation."
+        },
+        {
+          "text": "Time-delay neural networks provide inherently superior domain transfer compared to deep residual convolutional networks.",
+          "isCorrect": false,
+          "rationale": "Both models in this comparison belong to the ResNet family, so architectural differences between TDNN and ResNet are not the driving factor."
+        },
+        {
+          "text": "Attentive statistics pooling causes performance saturation when training sets exceed 10,000 unique speakers.",
+          "isCorrect": false,
+          "rationale": "Attentive statistics pooling scales effectively to large datasets and does not cause performance saturation."
+        }
+      ],
+      "hint": "Compare the impact of training corpus speaker counts (110k vs 6k) against model layer counts (34 vs 293)."
+    },
+    {
+      "type": "multiple_select",
+      "hasAllOfTheAbove": false,
+      "hasNoneOfTheAbove": false,
+      "question": "When clustering an unlabelled target audio corpus where ground-truth speaker labels are unavailable, which of the following heuristic checks can validate cluster quality and detect merge errors?",
+      "answerOptions": [
+        {
+          "text": "Split-Half Consistency: verifying whether embeddings extracted from separated halves of single long audio files assign to the same cluster.",
+          "isCorrect": true,
+          "rationale": "Since separate halves of one audio file belong to the same speaker, failing to cluster them together signals over-segmentation or an excessively high distance threshold."
+        },
+        {
+          "text": "Dual-Encoder Agreement: evaluating whether two distinct embedding architectures concur on disputed graph edges before merging.",
+          "isCorrect": true,
+          "rationale": "If two models trained on different data sources disagree on a similarity edge, the link is likely caused by background noise or music rather than speaker identity."
+        },
+        {
+          "text": "Giant Cluster Detection: monitoring whether any single cluster expands to consume more than 1% of the entire corpus.",
+          "isCorrect": true,
+          "rationale": "A single cluster growing unnaturally large indicates a chaining effect where non-speech background noise or shared music collates distinct speakers."
+        },
+        {
+          "text": "Supervised EER Verification: calculating the exact Equal Error Rate on target corpus clusters against VoxCeleb1-O test pairs.",
+          "isCorrect": false,
+          "rationale": "VoxCeleb1-O is an external supervised benchmark dataset and cannot be used to measure cluster error rates on an unlabelled target corpus."
+        }
+      ],
+      "hint": "Select methods that exploit internal structural properties of unlabelled files or cross-model consistency."
+    }
+  ]
+}

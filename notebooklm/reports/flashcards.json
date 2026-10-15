@@ -1,0 +1,329 @@
+{
+  "title": "Voice Biometrics Flashcards",
+  "cards": [
+    {
+      "front": "What is the primary goal of Speaker Identification in audio biometrics?",
+      "back": "Determining the identity of a speaker from a known or unknown set of individuals."
+    },
+    {
+      "front": "How does Automatic Speech Recognition (ASR) differ from Speaker Identification?",
+      "back": "ASR transcribes spoken language into text, whereas Speaker Identification determines who is speaking."
+    },
+    {
+      "front": "What is the primary function of Voice Anti-Spoofing in a voice biometrics pipeline?",
+      "back": "Detecting whether an audio sample is from a live human or synthetic speech (deepfake)."
+    },
+    {
+      "front": "What physical organ's vibration determines the fundamental frequency ($F_0$) of a human voice?",
+      "back": "The vocal folds (vocal cords) in the larynx."
+    },
+    {
+      "front": "What is the typical fundamental frequency ($F_0$) range for adult male voices during phonation?",
+      "back": "85 Hz to 180 Hz."
+    },
+    {
+      "front": "What is the typical fundamental frequency ($F_0$) range for adult female voices during phonation?",
+      "back": "165 Hz to 255 Hz."
+    },
+    {
+      "front": "Anatomic correlates: Formants $F_1$ and $F_2$ primarily correspond to _____ movement during speech articulation.",
+      "back": "tongue"
+    },
+    {
+      "front": "Which formants are most informative for individual speaker identification due to vocal tract geometry?",
+      "back": "Formants $F_3$, $F_4$, and higher."
+    },
+    {
+      "front": "Concept: Jitter in acoustic phonetics",
+      "back": "Definition: The cycle-to-cycle variation of fundamental frequency ($F_0$) periods."
+    },
+    {
+      "front": "Concept: Shimmer in acoustic phonetics",
+      "back": "Definition: The cycle-to-cycle variation of vocal amplitude between adjacent speech periods."
+    },
+    {
+      "front": "What does a high Harmonics-to-Noise Ratio (HNR) indicate regarding voice quality?",
+      "back": "A clear, resonant voice with minimal turbulent noise from incomplete vocal fold closure."
+    },
+    {
+      "front": "What standard acoustic feature representation replaces MFCCs as the input to modern deep neural networks like ResNet and TDNN?",
+      "back": "Log-Mel Filterbanks (Fbanks)."
+    },
+    {
+      "front": "What frame length and frame shift are standard for computing Log-Mel Filterbanks in speaker embedding extractors?",
+      "back": "A 25 ms frame length with a 10 ms frame shift."
+    },
+    {
+      "front": "In biometrics, Open-Set Speaker Identification differs from Closed-Set Identification by allowing the candidate to be _____.",
+      "back": "Out-of-Set (an unmonitored or unknown individual)"
+    },
+    {
+      "front": "What formula describes the Open-Set False Alarm Rate ($FAR_{OSI}$) given watchlist size $N$ and $1:1$ $FAR_{1:1}$?",
+      "back": "$FAR_{OSI} = 1 - (1 - FAR_{1:1})^N \\approx N \\cdot FAR_{1:1}$"
+    },
+    {
+      "front": "According to the VoxWatch benchmark, expanding watchlist size from 50 to 500 increases ResNet-34 $FAR$ at $FRR=5\\%$ by what factor?",
+      "back": "Approximately 7 times (from $2.4\\%$ to $16.1\\%$)."
+    },
+    {
+      "front": "Why is Equal Error Rate (EER) an insufficient single metric for operational biometric security systems?",
+      "back": "Real systems operate at strict low-FAR thresholds rather than the artificial point where $FAR = FRR$."
+    },
+    {
+      "front": "What metric evaluates speaker recognition false rejections when false alarms are constrained to 1 in 200 attempts?",
+      "back": "$FRR\\text{@}FAR=0.5\\%$"
+    },
+    {
+      "front": "In the NIST SRE Detection Cost Function ($minDCF$), what three parameters weight the detection errors?",
+      "back": "The cost of miss ($C_{miss}$), cost of false alarm ($C_{fa}$), and target prior probability ($P_{target}$)."
+    },
+    {
+      "front": "Why does standard Softmax cross-entropy loss underperform in open-set speaker recognition tasks?",
+      "back": "It optimizes linear class separability rather than intra-class compactness and angular margin on a hypersphere."
+    },
+    {
+      "front": "How does Additive Angular Margin Softmax (AAM-Softmax / ArcFace) penalize feature vectors during training?",
+      "back": "By adding an angular margin penalty $m$ directly to the angle $\\theta_y$ between normalized embeddings and class weights."
+    },
+    {
+      "front": "In the AAM-Softmax loss equation $L = -\\log \\frac{e^{s \\cos(\\theta_{y} + m)}}{e^{s \\cos(\\theta_{y} + m)} + \\sum_{j \\neq y} e^{s \\cos \\theta_j}}$, what does $s$ represent?",
+      "back": "The feature scale parameter (hypersphere radius)."
+    },
+    {
+      "front": "What changes are made during the Large-Margin Fine-Tuning (LM-FT) stage compared to initial model pre-training?",
+      "back": "Audio segment duration increases (e.g., to 6 seconds), angular margin $m$ increases (e.g., to 0.5), and speed perturbation is disabled."
+    },
+    {
+      "front": "What loss variation accommodates noisy internet speaker labels by maintaining multiple class centers?",
+      "back": "Sub-center ArcFace."
+    },
+    {
+      "front": "What structural innovation allows SimAM (Simple Attention Module) to calculate 3D attention weights without extra parameters?",
+      "back": "An energy function derived from the spatial/channel distribution of individual neurons."
+    },
+    {
+      "front": "Which ultra-large multilingual dataset containing over 110,000 speakers was used to train SimAM-ResNet34?",
+      "back": "VoxBlink2."
+    },
+    {
+      "front": "Why does SimAM-ResNet34 out-perform deeper architectures like ResNet293 trained solely on VoxCeleb2?",
+      "back": "The massive scale and diversity of the VoxBlink2 training data outweigh architectural depth."
+    },
+    {
+      "front": "What key architectural feature gives ERes2NetV2 superior performance across unseen domains?",
+      "back": "Local and global feature fusion (combining local acoustic changes with long-term vocal timbre)."
+    },
+    {
+      "front": "What is the EER of ERes2NetV2 on 2-second short speech segments from the VoxCeleb1-O test set?",
+      "back": "$1.48\\%$"
+    },
+    {
+      "front": "What mechanism enables CAM++ to outperform ECAPA-TDNN while using only 7.2 million parameters?",
+      "back": "Context-Aware Masking on a D-TDNN backbone."
+    },
+    {
+      "front": "Why was SpeechBrain's ECAPA-TDNN downgraded in the VoiceID model shortlist despite strong VoxCeleb performance?",
+      "back": "It suffered severe accuracy degradation when tested out-of-domain on CNCeleb ($8.01\\%$ EER)."
+    },
+    {
+      "front": "What is Domain Mismatch in speaker recognition?",
+      "back": "The performance drop that occurs when testing a model on audio recorded in acoustic environments different from its training data."
+    },
+    {
+      "front": "On the cross-domain CNCeleb benchmark, what happened to ResNet34's EER when moving from VoxCeleb data?",
+      "back": "EER degraded 9-fold from $0.723\\%$ to $6.492\\%$."
+    },
+    {
+      "front": "How does simple unweighted Score Fusion of two distinct speaker models impact Open-Set False Alarm Rate?",
+      "back": "It reduces FAR by up to $44\\%$ on large watchlists."
+    },
+    {
+      "front": "What meta-features are utilized by Quality-aware Score Calibration (QMF) logistic regression?",
+      "back": "Cosine similarity, audio segment duration, embedding norms, and signal-to-noise ratio (SNR)."
+    },
+    {
+      "front": "By what percentage does QMF score calibration reduce False Alarm Rates across varying watchlist sizes?",
+      "back": "By approximately $21\\%$ relative FAR reduction."
+    },
+    {
+      "front": "Concept: Multi-Session Enrollment",
+      "back": "Definition: Averaging normalized speaker embeddings across multiple distinct recording sessions to reduce temporary channel and emotional noise."
+    },
+    {
+      "front": "Why can Adaptive Score Normalization (AS-Norm) degrade performance in Open-Set Identification tasks?",
+      "back": "The maximum operator across a large watchlist can select cohort impostors that artificially distort top comparison scores."
+    },
+    {
+      "front": "What voice activity detector (VAD) model is integrated into the VoiceID pre-processing pipeline?",
+      "back": "Silero VAD."
+    },
+    {
+      "front": "What frequency cut-off is simulated when applying a Telephony Filter via resample transform?",
+      "back": "4000 Hz (by downsampling 16 kHz audio to 8 kHz and upsampling back to 16 kHz)."
+    },
+    {
+      "front": "Why is tar-sharding (UIO / WebDataset format) required when processing millions of short audio files?",
+      "back": "It prevents Linux file system I/O bottlenecks and inode exhaustion by streaming large contiguous archive blocks."
+    },
+    {
+      "front": "Which approximate nearest neighbor graph algorithm is used in FAISS for fast embedding retrieval?",
+      "back": "Hierarchical Navigable Small World (HNSW)."
+    },
+    {
+      "front": "What condition must be met to keep an edge between nodes $u$ and $v$ under Mutual $k\\text{-NN}$ filtering?",
+      "back": "Node $u$ must be in the top-$k$ neighbors of $v$, AND node $v$ must be in the top-$k$ neighbors of $u$."
+    },
+    {
+      "front": "In the VoiceID clustering pipeline, what graph community detection algorithm is applied after Mutual $k\\text{-NN}$ filtering?",
+      "back": "Leiden algorithm."
+    },
+    {
+      "front": "What clustering method is used within oversized Leiden communities to prevent cluster over-merging?",
+      "back": "Agglomerative Hierarchical Clustering (AHC) with average linkage."
+    },
+    {
+      "front": "How are positive (same-speaker) trial pairs generated for threshold calibration without manual labels?",
+      "back": "By pairing non-adjacent split-half segments (e.g., 1st and 3rd quarters) extracted from the same long audio recording."
+    },
+    {
+      "front": "How are negative (different-speaker) trial pairs generated for unlabeled threshold calibration?",
+      "back": "By sampling random pairs of audio files across a large corpus."
+    },
+    {
+      "front": "What metric measures whether two halves of an unlabeled audio file are consistently assigned to the same cluster?",
+      "back": "Split-Half Consistency."
+    },
+    {
+      "front": "What target value must Split-Half Consistency exceed to confirm proper cluster granularity?",
+      "back": "$95\\%$"
+    },
+    {
+      "front": "What iterative steps constitute Pseudo-Label Training in semi-supervised speaker representation learning?",
+      "back": "Graph clustering $\\rightarrow$ pseudo-label generation $\\rightarrow$ AAM-Softmax fine-tuning $\\rightarrow$ embedding extraction $\\rightarrow$ re-clustering."
+    },
+    {
+      "front": "What EER level can self-supervised ArcFace fine-tuning achieve on VoxCeleb without human-annotated speaker labels?",
+      "back": "Approximately $0.99\\% \\text{--} 1.01\\%$ EER."
+    },
+    {
+      "front": "What is the primary target dataset container and audio codec used in Telegram voice messages?",
+      "back": "Ogg container with Opus audio codec."
+    },
+    {
+      "front": "What acoustic evaluation protocol uses the VoxCeleb1 dataset split into gender- and nationality-matched pairs?",
+      "back": "Vox1-H (Hard) protocol."
+    },
+    {
+      "front": "What cross-domain speaker recognition benchmark features 3,000 speakers across 11 different genres?",
+      "back": "CNCeleb."
+    },
+    {
+      "front": "What public corpus containing volunteer voice recordings and $client\\_id$ metadata provides ready-to-use speaker labels for benchmark split creation?",
+      "back": "Mozilla Common Voice."
+    },
+    {
+      "front": "Discriminative Fine-Tuning applies a learning rate of $3 \\times 10^{-6}$ to the Wav2Vec2 frontend and _____ to the classification head.",
+      "back": "$2 \\times 10^{-5}$"
+    },
+    {
+      "front": "Concept: Double Dipping in machine learning evaluation",
+      "back": "Definition: Reusing the validation set for early stopping, hyperparameter tuning, and reporting final test accuracy."
+    },
+    {
+      "front": "Why is returning zero-tensors on audio read failures dangerous during neural network dataset iteration?",
+      "back": "It silently trains the neural network on silent audio frames labeled as valid data, corrupting gradients."
+    },
+    {
+      "front": "What is the primary architectural component of the WaveFakeModel used for deepfake detection?",
+      "back": "A pre-trained Wav2Vec2 SSL frontend followed by mean temporal pooling and a linear classifier."
+    },
+    {
+      "front": "What metric balances Detection Error Tradeoff by plotting false rejection rate against false alarm rate on logarithmic axes?",
+      "back": "Detection Error Tradeoff (DET) curve."
+    },
+    {
+      "front": "In A-Softmax (SphereFace), what type of angular margin multiplier $m$ is applied to the target angle?",
+      "back": "Multiplicative angular margin."
+    },
+    {
+      "front": "In CosFace (AM-Softmax), how is the margin $m$ applied to the target logit?",
+      "back": "As an additive cosine margin subtracted from $\\cos \\theta_y$."
+    },
+    {
+      "front": "What audio feature extractor combines 1D time-domain convolutions with Sinc-based band-pass filters?",
+      "back": "SincNet."
+    },
+    {
+      "front": "What is the minimum recommended speech duration for extracting stable deep speaker embeddings in production?",
+      "back": "3.0 seconds of active speech."
+    },
+    {
+      "front": "Why are raw pre-trained WavLM base embeddings insufficient as direct speaker verification embeddings without fine-tuning?",
+      "back": "They retain high phonetic and semantic information rather than speaker-exclusive timbre characteristics."
+    },
+    {
+      "front": "What speaker recognition baseline achieves a $0.52\\%$ EER on VoxCeleb1-O by combining a WavLM front-end with an AAM-TDNN back-end?",
+      "back": "WavLM-TDNN with joint fine-tuning."
+    },
+    {
+      "front": "In speaker embedding extraction, what pooling layer aggregates temporal frame features into segment-level representations using attention weights?",
+      "back": "Attentive Statistics Pooling (ASP)."
+    },
+    {
+      "front": "What is the standard sampling rate required by most pre-trained deep speaker recognition models?",
+      "back": "16 kHz (16,000 samples per second)."
+    },
+    {
+      "front": "What mathematical metric is standard for computing distance between two normalized $L_2$ speaker embedding vectors?",
+      "back": "Cosine similarity (or Euclidean distance on unit sphere)."
+    },
+    {
+      "front": "Which Python library is standard for loading audio, computing MFCCs, and generating Mel-spectrograms in research pipelines?",
+      "back": "Librosa."
+    },
+    {
+      "front": "In speaker diarization, what two steps follow audio segmentation?",
+      "back": "Embedding extraction for each segment and intra-recording clustering."
+    },
+    {
+      "front": "Why is speed perturbation disabled during Large-Margin Fine-Tuning of speaker encoders?",
+      "back": "Speed perturbation alters vocal tract pitch scale, which can blur subtle timbral differences when fine-tuning margins."
+    },
+    {
+      "front": "What happens to false alarm rate ($FAR$) in an Open-Set System as watchlist size approaches infinity without score normalization?",
+      "back": "$FAR_{OSI}$ approaches $100\\%$."
+    },
+    {
+      "front": "What open-source deep learning framework developed by Horizon Robotics provides end-to-end speaker verification recipes and C++/Python runtimes?",
+      "back": "WeSpeaker."
+    },
+    {
+      "front": "In Python string formatting, why does applying the `:.2%` specifier to a rate variable already multiplied by 100 cause an error?",
+      "back": "The `:.2%` specifier automatically multiplies the number by 100 a second time."
+    },
+    {
+      "front": "What heuristic limits candidate search space when clustering audio messages within individual 1:1 chat channels?",
+      "back": "A 1:1 chat context inherently limits the maximum number of unique speakers to 2."
+    },
+    {
+      "front": "What role does SpecAugment play during speaker encoder GPU training?",
+      "back": "It provides online data augmentation by masking random blocks of frequency channels and time steps."
+    },
+    {
+      "front": "What happens to the EER gap between weak and strong speaker architectures when evaluation speech duration drops from full length to 2 seconds?",
+      "back": "The performance gap between weak and strong architectures doubles."
+    },
+    {
+      "front": "What is the parameter count of the CAM++ speaker embedding model?",
+      "back": "7.2 million parameters."
+    },
+    {
+      "front": "In biometric verification, what error occurs when a valid enrolled target speaker is rejected by the system?",
+      "back": "False Rejection (Type II Error / Miss)."
+    },
+    {
+      "front": "In biometric verification, what error occurs when an un-enrolled impostor is accepted as a watchlist target?",
+      "back": "False Alarm (Type I Error / False Accept)."
+    }
+  ]
+}

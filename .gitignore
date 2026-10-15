@@ -1,0 +1,25 @@
+# тимчасове
+temp/
+*.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# артефакти, які ніколи не йдуть у git
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+embeddings/
+checkpoints/
+runs/
+
+# Obsidian
+.obsidian/
+
+# ОС
+.DS_Store
