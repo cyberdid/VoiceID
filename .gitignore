@@ -17,6 +17,7 @@ venv/
 embeddings/
 checkpoints/
 runs/
+notebooklm/reports/audio_overview.m4a
 
 # Obsidian
 .obsidian/
